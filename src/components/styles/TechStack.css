@@ -1,0 +1,323 @@
+/* ── TechStack section layout ──────────────────── */
+.techstack {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  margin: auto;
+  margin-top: 80px;
+  padding-bottom: 40px;
+}
+
+/* ── Header: title + subtitle ABOVE the canvas ─── */
+.techstack-header {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 20px;
+  margin-bottom: 10px;
+}
+
+.techstack-header h2 {
+  font-size: clamp(36px, 6vw, 80px);
+  font-weight: 400;
+  text-transform: uppercase;
+  margin: 0;
+  letter-spacing: 2px;
+  color: #eae5ec;
+}
+
+.techstack-header h2 span {
+  color: var(--accentColor);
+}
+
+.techstack-subtitle {
+  font-size: clamp(13px, 1.5vw, 16px);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.35);
+  margin: 8px 0 0;
+  font-weight: 400;
+}
+
+/* ── Canvas wrapper: constrained height ──────────── */
+.techstack-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  height: clamp(350px, 55vh, 600px);
+  overflow: hidden;
+}
+
+.tech-canvas {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Labels on each sphere ──────────────────────── */
+.tech-label {
+  font-family: "Geist", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 4px 14px;
+  border-radius: 20px;
+  background: rgba(10, 14, 23, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  text-shadow: 0 0 10px currentColor;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── Hint text at the bottom ─────────────────────── */
+.tech-hint {
+  position: relative;
+  text-align: center;
+  font-family: "Geist", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0);
+  pointer-events: none;
+  user-select: none;
+  transition: color 0.6s ease;
+  z-index: 10;
+  margin-top: -10px;
+  padding-bottom: 10px;
+}
+
+.tech-hint.visible {
+  color: rgba(255, 255, 255, 0.35);
+  animation: hintPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes hintPulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   SKILL GRID — Categorized chips below the 3D canvas
+   ═══════════════════════════════════════════════════ */
+
+.skill-grid {
+  max-width: 1100px;
+  width: var(--cWidth, 94%);
+  margin: 50px auto 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Category card ──────────────────────────────── */
+.skill-category {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 28px 28px 24px;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.4s ease, background 0.4s ease;
+}
+
+.skill-grid.active .skill-category {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Left accent glow bar */
+.skill-category::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--cat-color, var(--accentColor));
+  opacity: 0.5;
+  transition: opacity 0.4s ease, box-shadow 0.4s ease;
+}
+
+.skill-category:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.skill-category:hover::before {
+  opacity: 1;
+  box-shadow: 0 0 20px var(--cat-color, var(--accentColor)),
+    0 0 40px color-mix(in srgb, var(--cat-color, var(--accentColor)) 30%, transparent);
+}
+
+/* ── Category header ────────────────────────────── */
+.skill-category-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.skill-category-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cat-color, var(--accentColor));
+  box-shadow: 0 0 8px var(--cat-color, var(--accentColor));
+  flex-shrink: 0;
+}
+
+.skill-category-header h3 {
+  font-family: "Geist", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #eae5ec;
+  margin: 0;
+  flex: 1;
+}
+
+.skill-category-count {
+  font-family: "Geist", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+}
+
+/* ── Skill chips container ──────────────────────── */
+.skill-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ── Individual skill chip ──────────────────────── */
+.skill-chip {
+  font-family: "Geist", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 7px 18px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skill-grid.active .skill-chip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Subtle inner glow on hover */
+.skill-chip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in srgb, var(--chip-color, #5eead4) 12%, transparent),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.skill-chip:hover {
+  color: #fff;
+  border-color: color-mix(in srgb, var(--chip-color, #5eead4) 40%, transparent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--chip-color, #5eead4) 15%, transparent);
+}
+
+.skill-chip:hover::before {
+  opacity: 1;
+}
+
+/* ── Responsive ──────────────────────────────────── */
+@media screen and (max-width: 900px) {
+  .techstack {
+    margin-top: 50px;
+  }
+
+  .techstack-canvas-wrapper {
+    height: clamp(300px, 50vh, 450px);
+  }
+
+  .tech-label {
+    font-size: 10px;
+    padding: 3px 10px;
+  }
+
+  .skill-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-top: 35px;
+  }
+
+  .skill-category {
+    padding: 22px 20px 20px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .techstack {
+    margin-top: 30px;
+  }
+
+  .techstack-canvas-wrapper {
+    height: clamp(280px, 45vh, 380px);
+  }
+
+  .tech-hint {
+    font-size: 11px;
+  }
+
+  .skill-grid {
+    gap: 14px;
+    margin-top: 25px;
+  }
+
+  .skill-category {
+    padding: 18px 16px 16px;
+    border-radius: 12px;
+  }
+
+  .skill-category-header h3 {
+    font-size: 13px;
+  }
+
+  .skill-chip {
+    font-size: 12px;
+    padding: 6px 14px;
+  }
+
+  .skill-chips {
+    gap: 8px;
+  }
+}

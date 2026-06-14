@@ -66,7 +66,7 @@ const Work = () => {
     <div className="work-section" id="work">
       <div className="work-container section-container">
         <h2>
-          My <span>Work</span>
+          My <span>Projects</span>
         </h2>
 
         <div className="carousel-wrapper">

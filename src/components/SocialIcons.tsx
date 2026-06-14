@@ -5,10 +5,12 @@ import {
 } from "react-icons/fa6";
 import "./styles/SocialIcons.css";
 import { TbNotes } from "react-icons/tb";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import HoverLinks from "./HoverLinks";
 
 const SocialIcons = () => {
+  const [hideIcons, setHideIcons] = useState(false);
+
   useEffect(() => {
     const social = document.getElementById("social") as HTMLElement;
 
@@ -53,10 +55,25 @@ const SocialIcons = () => {
         elem.removeEventListener("mousemove", onMouseMove);
       };
     });
+
+    // Hide social icons when contact section is in view
+    let rafId: number;
+    const checkContactVisibility = () => {
+      const contactEl = document.getElementById("contact");
+      if (contactEl) {
+        const rect = contactEl.getBoundingClientRect();
+        // The contact section starts when its top is above the bottom of the viewport
+        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+        setHideIcons(isVisible);
+      }
+      rafId = requestAnimationFrame(checkContactVisibility);
+    };
+    rafId = requestAnimationFrame(checkContactVisibility);
+    return () => cancelAnimationFrame(rafId);
   }, []);
 
   return (
-    <div className="icons-section">
+    <div className={`icons-section ${hideIcons ? "icons-hidden" : ""}`}>
       <div className="social-icons" data-cursor="icons" id="social">
         <span>
           <a href="https://github.com/prajwal00017" target="_blank">
